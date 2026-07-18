@@ -1,58 +1,53 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07111f">
   <title>Gusty News AI™</title>
   <style>
-    :root { --bg:#08111f; --card:#111d30; --text:#f6f8fb; --muted:#9fb0c6; --accent:#2f80ed; --ok:#25c27a; }
-    *{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#07101d,#0d1727);color:var(--text)}
-    .wrap{max-width:980px;margin:auto;padding:24px}.brand{font-weight:800;font-size:28px}.tag{color:var(--muted);margin-top:6px}
-    .hero{padding:44px 0 28px}.hero h1{font-size:clamp(36px,7vw,72px);line-height:1.02;margin:0 0 14px}.hero p{font-size:18px;color:var(--muted);max-width:720px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:24px 0}.card{background:var(--card);border:1px solid #20304a;border-radius:18px;padding:18px}
-    .card h3{margin:0 0 8px}.card p{color:var(--muted);margin:0}.panel{background:#0b1525;border:1px solid #20304a;border-radius:20px;padding:18px;margin-top:22px}
-    textarea{width:100%;min-height:130px;border:1px solid #2b3d5a;border-radius:14px;background:#08111f;color:white;padding:14px;font-size:16px;resize:vertical}
-    button{margin-top:12px;background:var(--accent);color:white;border:0;border-radius:12px;padding:13px 18px;font-weight:700;font-size:16px;cursor:pointer}
-    .result{display:none;margin-top:16px;padding:16px;border-radius:14px;background:#0d2034;border-left:4px solid var(--ok);white-space:pre-wrap}
-    footer{padding:36px 0;color:var(--muted);font-size:14px}
+    :root{--bg:#07111f;--card:#0d1c31;--blue:#2490ff;--text:#f7fbff;--muted:#9eb1c7}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:linear-gradient(155deg,#06101d,#10284a);color:var(--text);min-height:100vh}
+    .wrap{max-width:860px;margin:auto;padding:30px 18px 64px}
+    .brand{font-weight:900;letter-spacing:.8px;color:#68b7ff}
+    .hero{padding:42px 0 24px}
+    h1{font-size:clamp(42px,10vw,78px);line-height:.96;margin:14px 0}
+    .lead{color:var(--muted);font-size:18px;line-height:1.55}
+    .tags{margin-top:18px}
+    .tag{display:inline-block;padding:7px 11px;border-radius:999px;background:#16385f;color:#8fc8ff;font-size:13px;margin:4px}
+    .card{background:rgba(13,28,49,.94);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:22px;margin-top:22px;box-shadow:0 18px 50px rgba(0,0,0,.25)}
+    textarea{width:100%;min-height:130px;background:#071321;color:#fff;border:1px solid #294766;border-radius:14px;padding:14px;font-size:16px;resize:vertical}
+    button{width:100%;margin-top:12px;border:0;border-radius:14px;padding:15px;background:var(--blue);color:white;font-weight:900;font-size:16px}
+    #resultado{white-space:pre-wrap;color:#dcecff;line-height:1.55;margin-top:18px}
+    footer{color:#6f88a3;text-align:center;margin-top:38px;font-size:13px}
   </style>
 </head>
 <body>
   <main class="wrap">
-    <div class="brand">Gusty News AI™</div>
-    <div class="tag">Noticias, contexto y contenido con inteligencia artificial.</div>
-
+    <div class="brand">GUSTY NEWS AI™</div>
     <section class="hero">
-      <h1>De noticia a contenido viral en segundos.</h1>
-      <p>Un MVP funcional para convertir una idea o noticia en un titular, resumen y publicación lista para redes.</p>
+      <div class="tags">
+        <span class="tag">Japón</span><span class="tag">IA</span><span class="tag">Negocios</span><span class="tag">China</span>
+      </div>
+      <h1>Noticias con criterio, no con ruido.</h1>
+      <p class="lead">Una primera versión funcional para convertir temas y noticias en borradores editoriales con estilo Gusty™.</p>
     </section>
-
-    <section class="grid">
-      <article class="card"><h3>📰 Titular potente</h3><p>Convierte información compleja en un gancho claro y compartible.</p></article>
-      <article class="card"><h3>🧠 Contexto rápido</h3><p>Resume lo esencial sin perder el sentido de la noticia.</p></article>
-      <article class="card"><h3>📱 Post para redes</h3><p>Genera una versión lista para copiar, adaptar y publicar.</p></article>
+    <section class="card">
+      <h2>Generador rápido</h2>
+      <textarea id="tema" placeholder="Escribe aquí una noticia o tema…"></textarea>
+      <button onclick="generar()">Crear borrador Gusty</button>
+      <div id="resultado"></div>
     </section>
-
-    <section class="panel">
-      <h2>Prueba el generador</h2>
-      <p class="tag">Escribe una noticia o idea. Esta demo funciona directamente en el navegador.</p>
-      <textarea id="input" placeholder="Ejemplo: Japón presenta una cabina refrigerada para proteger a trabajadores del calor extremo..."></textarea>
-      <button onclick="generar()">Generar contenido</button>
-      <div id="result" class="result"></div>
-    </section>
-
-    <footer>— Gusty™ · MVP 1.0</footer>
+    <footer>Gusty News AI™ · MVP v2</footer>
   </main>
-<script>
-function generar(){
-  const t=document.getElementById('input').value.trim();
-  const r=document.getElementById('result');
-  if(!t){r.style.display='block';r.textContent='Escribe una noticia o idea primero.';return;}
-  const clean=t.replace(/\s+/g,' ').trim();
-  const short=clean.length>120?clean.slice(0,117)+'...':clean;
-  r.style.display='block';
-  r.textContent=`TITULAR\n${short.toUpperCase()}\n\nRESUMEN\n${clean}\n\nPOST\n🚨 ${short}\n\nLa innovación no siempre llega como un robot: a veces llega como una solución sencilla para un problema urgente. ¿Qué opinas?\n\n— Gusty™`;
-}
-</script>
+  <script>
+    function generar(){
+      const tema=document.getElementById('tema').value.trim();
+      const out=document.getElementById('resultado');
+      if(!tema){out.textContent='Escribe primero una noticia o tema.';return;}
+      out.textContent='📰 GUSTY NEWS AI™\n\n'+tema+'\n\n¿Por qué importa?\nPorque detrás del titular existe una señal que puede afectar a personas, empresas o mercados.\n\n¿Qué opinas?\n\n— Gusty™';
+    }
+  </script>
 </body>
 </html>

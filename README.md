@@ -1,7 +1,10 @@
-# Gusty News AI™ — MVP listo para Vercel
+# Gusty News AI™ v2
 
-Proyecto estático sin dependencias. Vercel detecta `index.html` automáticamente.
+Versión estática para Vercel.
 
-Archivos necesarios:
-- `index.html`
-- `vercel.json`
+Archivos clave:
+- index.html
+- vercel.json
+- .vercelignore
+
+`.vercelignore` evita que Vercel ejecute el proyecto Python anterior.
